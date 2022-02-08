@@ -5,16 +5,21 @@
   become: yes
   become_method: sudo
   become_user: root
-   
+  vars_files:
+    - passwords.yml
+  
   tasks:
   - name: creating users
     user:
       name: "{{ item.name }}"
       comment: "{{ item.email }}"
       home: "{{ item.folder }}"
+      password: "{{ item.password }}"
       state: present
+      
+      
     loop:
-      - { name: 'Alice', email: 'alice@example.com', password: 'alice', folder: '/home/alice' } 
-      - { name: 'Bob', email: 'bob@example.com', password: 'bob', folder: '/home/bob' } 
-      - { name: 'Carol', email: 'carol@example.com', password: 'carol', folder: '/home/carol' }     
+      - { name: 'Alice', email: 'alice@example.com', password: "{{ alicepass }}", folder: '/home/alice' } 
+      - { name: 'Bob', email: 'bob@example.com', password: "{{ bobpass }}", folder: '/home/bob' } 
+      - { name: 'Carol', email: 'carol@example.com', password: "{{ carolpass }}", folder: '/home/carol' }     
 ...
