@@ -1,0 +1,20 @@
+---
+- name: second playbook
+  hosts: node1.example.com
+  user: ansible
+  become: yes
+  become_method: sudo
+  become_user: root
+   
+  tasks:
+  - name: creating users
+    user:
+      name: "{{ item.name }}"
+      comment: "{{ item.email }}"
+      home: "{{ item.folder }}"
+      state: present
+  loop:
+    - { name: 'Alice', email: 'alice@example.com', password: 'alice', folder: '/home/alice' } 
+    - { name: 'Bob', email: 'bob@example.com', password: 'bob', folder: '/home/bob' } 
+    - { name: 'Carol', email: 'carol@example.com', password: 'carol', folder: '/home/carol' }     
+...
