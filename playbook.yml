@@ -14,7 +14,7 @@
       name: "{{ item.name }}"
       comment: "{{ item.email }}"
       home: "{{ item.folder }}"
-      password: "{{ item.password }}"
+      password: "{{ item.password | password_hash('sha512') }}"
       state: present
       
       
